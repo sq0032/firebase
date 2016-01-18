@@ -6,14 +6,19 @@ var usersRef = myFirebaseRef.child("users");
 var newUsersRef = usersRef.push();
 const usersRefKey = newUsersRef.key();
 
+const authData = myFirebaseRef.getAuth();
+console.log(authData);
 
-myFirebaseRef.authAnonymously(function(error, authData) {
-  if (error) {
-    console.log("Login Failed!", error);
-  } else {
-    console.log("Authenticated successfully with payload:", authData);
-  }
-});
+if(!authData){
+  myFirebaseRef.authAnonymously(function(error, authData) {
+    if (error) {
+      console.log("Login Failed!", error);
+    } else {
+      console.log("Authenticated successfully with payload:", authData);
+    }
+  });
+}
+  
 
 var actions = {};
 //console.log(newUsersRef);
